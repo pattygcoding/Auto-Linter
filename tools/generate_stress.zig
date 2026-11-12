@@ -136,7 +136,7 @@ fn recordsJson(out: *std.ArrayList(u8), allocator: std.mem.Allocator, records: [
 
 /// Escapes a string the way Go's `encoding/json` does: short escapes for the
 /// control characters that have one, and `\u00xx` for `<`, `>` and `&`, so the
-/// fixtures also cover HTML-escape preservation.
+/// fixtures also cover HTML-escape preservation. Test
 fn jsonEscape(out: *std.ArrayList(u8), allocator: std.mem.Allocator, value: []const u8) !void {
     for (value) |character| {
         switch (character) {
