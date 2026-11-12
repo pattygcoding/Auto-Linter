@@ -14,13 +14,13 @@ These files are deterministic, synthetic data. Invalid files are intentional.
 Regenerate from the repository root:
 
 ```powershell
-cargo run --release --bin generate-stress
+zig build generate-stress
 ```
 
 Run native and compiled WASM stress tests:
 
 ```powershell
-cargo test --test fixtures
+zig build test
 .\scripts\build.ps1
 node --test test/stress.test.cjs
 ```

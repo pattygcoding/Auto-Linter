@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>JSON/YAML Formatter (Rust + WASM)</title>
+    <title>Auto-Linter (Zig + WASM)</title>
     <style>
         * {
             box-sizing: border-box;
@@ -47,16 +47,21 @@
 </head>
 
 <body>
-    <h1>JSON/YAML Formatter</h1>
+    <h1>Auto-Linter</h1>
     <label for="formatSelect">Format as:</label>
     <select id="formatSelect">
         <option value="auto">Auto-detect</option>
         <option value="json">JSON</option>
         <option value="yaml">YAML</option>
+        <option value="xml">XML</option>
+        <option value="html">HTML</option>
+        <option value="toml">TOML</option>
+        <option value="csv">CSV</option>
+        <option value="tsv">TSV</option>
     </select>
-    <textarea id="input" aria-label="JSON or YAML input" spellcheck="false" placeholder="Paste JSON or YAML here..."></textarea>
+    <textarea id="input" aria-label="JSON, YAML, XML, HTML, TOML, CSV or TSV input" spellcheck="false" placeholder="Paste JSON, YAML, XML, HTML, TOML, CSV or TSV here..."></textarea>
     <button id="formatBtn" disabled>Format</button>
-    <pre id="output" role="status" aria-live="polite">Loading formatter...</pre>
+    <pre id="output" role="status" aria-live="polite">Loading Auto-Linter...</pre>
 
     <script src="formatter.js"></script>
     <script>
@@ -65,14 +70,14 @@
 
         function showLoadError(error) {
             formatButton.disabled = true;
-            output.textContent = "Unable to load formatter: " + error.message;
+            output.textContent = "Unable to load Auto-Linter: " + error.message;
         }
 
         async function initializeFormatter() {
             try {
-                await FormatterWasm.init("formatter.wasm");
+                await AutoLinter.init("formatter.wasm");
                 if (typeof window.formatInput !== "function") {
-                    throw new Error("Formatter did not initialize");
+                    throw new Error("Auto-Linter did not initialize");
                 }
                 formatButton.onclick = () => {
                     try {

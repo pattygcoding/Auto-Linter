@@ -2,23 +2,18 @@ $ErrorActionPreference = "Stop"
 Push-Location (Join-Path $PSScriptRoot "..")
 
 try {
-    if (-not (Get-Command cargo -ErrorAction SilentlyContinue)) {
-        throw "cargo was not found. Install Rust from https://rustup.rs/ first."
-    }
-    if (Get-Command rustup -ErrorAction SilentlyContinue) {
-        if ((rustup target list --installed) -notcontains "wasm32-unknown-unknown") {
-            throw "The wasm32-unknown-unknown target is missing. Run: rustup target add wasm32-unknown-unknown"
-        }
+    if (-not (Get-Command zig -ErrorAction SilentlyContinue)) {
+        throw "zig was not found. Install Zig 0.16 or newer from https://ziglang.org/download/ first."
     }
 
-    cargo build --release --target wasm32-unknown-unknown
+    zig build -Doptimize=ReleaseSmall
     if ($LASTEXITCODE -ne 0) {
         throw "WASM build failed."
     }
 
-    Copy-Item "target\wasm32-unknown-unknown\release\formatter.wasm" "formatter.wasm" -Force
+    Copy-Item "zig-out\bin\formatter.wasm" "formatter.wasm" -Force
     $size = (Get-Item "formatter.wasm").Length
-    Write-Output "Built formatter.wasm ($size bytes). formatter.js is committed, so nothing else is generated."
+    Write-Output "Built formatter.wasm ($size bytes) with Zig. formatter.js is committed, so nothing else is generated."
 } finally {
     Pop-Location
 }

@@ -1,0 +1,17 @@
+# Example configuration
+title = "Formatter"
+enabled = true
+start = 07:32:00
+ports = [
+  8000,
+  8001,
+]
+owner = { name = "team", contact = "team@example.com" }
+message = """
+Keep this line.
+And this one.
+"""
+path = 'C:\data\records.json'
+
+[server]
+host = "127.0.0.1"

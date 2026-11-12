@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- catalog -->
+<catalog>
+  <book id="1" lang="en">
+    <title>Formatter</title>
+    <tags><tag>one</tag><tag>two</tag></tags>
+    <empty/>
+  </book>
+  <book id="2">
+    <title>Second</title>
+    <notes>Keep <em>inline</em> text.</notes>
+  </book>
+</catalog>
